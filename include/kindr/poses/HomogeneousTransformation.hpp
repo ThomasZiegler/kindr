@@ -125,6 +125,24 @@ class HomogeneousTransformation : public PoseBase<HomogeneousTransformation<Prim
     rotation_.setIdentity();
     return *this;
   }
+
+
+  /*! \brief Returns the inverse of the rotation
+   *  \returns inverse of the rotation
+   */
+  HomogeneousTransformation inverted() const {
+    return HomogeneousTransformation( -rotation_.inverseRotate(position_), rotation_.inverted() );
+  }
+
+  /*! \brief Inverts the rotation.
+   *  \returns reference
+   */
+  HomogeneousTransformation& invert() { 
+    position_ = -rotation_.inverseRotate(position_);
+    rotation_.invert();
+    return *this;
+  }
+
 };
 
 template <typename PrimType_>
